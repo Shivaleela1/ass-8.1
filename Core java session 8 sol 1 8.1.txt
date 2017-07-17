@@ -1,0 +1,128 @@
+package stringManipulation;
+
+import java.util.Scanner;
+
+public class BankAtm extends Throwable{
+
+	int atmId;
+	String bankName;
+	String location;
+	double balance;
+	double initialInterest;
+	
+	private double interest;
+
+	public BankAtm()//initialize balance and interest
+	{
+		balance = 0;
+		interest = 0;
+	}
+
+	public BankAtm(double initialBalance, double initialInterest)
+	{
+		balance = initialBalance;
+		interest = initialInterest;
+	}
+
+	public void deposit(double amt)
+	{
+		balance = balance + amt;
+	}
+
+	
+	public void addInterest()
+	{
+		balance = balance + balance * interest;
+	}
+
+	public double getBalance()
+	{
+		return balance;
+	}
+	public void withdraw(double amt){
+		
+		 
+        try
+        {
+            //checking withdraw money with the balance
+            //if withdraw money is more than the balance,
+            //then it throws Exception
+ 
+        	BankAtm obj = new BankAtm();
+        	double bal = obj.getBalance();
+            if(amt > bal)
+            {
+                throw new BankATMException("You don't have that much of money in your account please try again later");
+            }
+            else
+            {
+                System.out.println("Transaction Successful");
+            }
+        }
+        catch(BankATMException ex)
+        {
+            //InvalidWithdrawlMoneyException will be caught here
+ 
+            System.out.println(ex);
+        }
+	}
+}
+
+
+package stringManipulation;
+
+public class BankATMException extends Exception {
+
+	
+
+	String errorMessage;
+
+	  public BankATMException(String errorMessage)
+	  {
+	      this.errorMessage = errorMessage;
+	  }
+
+	  //Modifying toString() method to display customized error message
+
+	  @Override
+	  public String toString()
+	  {
+	      return errorMessage;
+	  }
+	 
+}
+
+
+package stringManipulation;
+
+import java.util.Scanner;
+
+public class Bank {
+
+	 public static void main(String[] args) {
+		 
+		 System.out.println("The ATM ID is KA*********90");
+		 System.out.println("The Bank Name is Bank of Mysuru");
+		 System.out.println("The location is in Kuvempu Road");
+		 
+		  BankAtm obj = new BankAtm(5000,.10);
+		  BankAtm obj1 = new BankAtm();
+		  BankAtm obj2 = new BankAtm();//creating objects 
+		  BankAtm obj3 = new BankAtm();
+		  
+		  Scanner sc = new Scanner(System.in);  //Declaring Scanner variable to take input from user
+		  
+         System.out.println("Enter deposit amount");
+
+         double amt = sc.nextDouble();         //Taking input from user
+
+		  obj.deposit(amt);
+		  obj.addInterest();
+		  System.out.println("The balance amount is "+obj.getBalance());
+		  System.out.println();
+		  obj1.withdraw(9000);
+		  obj2.withdraw(4000);//calling withdraw method
+		  obj3.withdraw(1000);
+	}
+}
+
